@@ -26,7 +26,6 @@ print(server['location']['dataCenter'])
 These examples showcase the possible actions that are exposed by this library.
 These all assume that a pre-existing API object called `novoapi` has been previously created.
 (See the 'Basic usage' chapter above.)  
-All functions output 
 ### Power actions
 #### Get the current power state
 ```python

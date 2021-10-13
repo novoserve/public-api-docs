@@ -5,7 +5,7 @@ class NovoServeApi:
     def __init__(self, username, api_key):
         self.username = username
         self.api_key = api_key
-        self.api_url = "https://api.novoserve.com/"
+        self.api_url = "https://api.novoserve.com/v1/"
 
     def __post(self, endpoint, post_data):
         response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), data=post_data)

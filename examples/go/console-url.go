@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-  url := "https://api.novoserve.com/v1/console-url/000-000"
+  url := "https://api.novoserve.com/v0/servers/000-000/ipmi-link"
   method := "POST"
 
   payload := strings.NewReader(`{`+"

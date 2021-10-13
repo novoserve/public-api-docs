@@ -2,7 +2,7 @@ require "uri"
 require "json"
 require "net/http"
 
-url = URI("https://api.novoserve.com/v1/console-url/000-000")
+url = URI("https://api.novoserve.com/v0/servers/000-000/ipmi-link")
 
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true

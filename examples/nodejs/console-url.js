@@ -1,7 +1,7 @@
 var request = require('request');
 var options = {
   'method': 'POST',
-  'url': 'https://api.novoserve.com/v1/console-url/000-000',
+  'url': 'https://api.novoserve.com/v0/servers/000-000/ipmi-link',
   'headers': {
     'Authorization': 'Basic [BASE64 STRING OF KEY+SECRET]',
     'Content-Type': 'application/json'

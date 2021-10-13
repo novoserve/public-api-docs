@@ -1,7 +1,7 @@
 import requests
 import json
 
-url = "https://api.novoserve.com/v1/console-url/000-000"
+url = "https://api.novoserve.com/v0/servers/000-000/ipmi-link"
 
 payload = json.dumps({
   "remoteIp": "127.0.0.1",

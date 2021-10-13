@@ -12,7 +12,7 @@ class NovoServeApi:
         return response.json()
 
     def __get(self, endpoint):
-        response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key))
+        response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key))
         return response.json()
 
     def __delete(self, endpoint):

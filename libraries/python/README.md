@@ -72,7 +72,7 @@ novoapi.get_cancellation("123-123")
 ```
 #### Request the cancellation for a server for the end of the billing cycle
 ```python
-novoapi.cancel_server("123-123")
+novoapi.request_cancellation("123-123")
 ```
 
 ### Console URL
@@ -93,11 +93,11 @@ novoapi.get_virtual_media("123-123")
 ```
 #### Mount a specific ISO on a server
 ```python
-novoapi.set_virtual_media("123-123", "https://webiso.novoserve.com/path/to/iso")
+novoapi.mount_virtual_media("123-123", "https://webiso.novoserve.com/path/to/iso")
 ```
 #### Unmount the ISO on a server
 ```python
-novoapi.delete_virtual_media("123-123")
+novoapi.unmount_virtual_media("123-123")
 ```
 #### Get all possible virtual media options for a server
 ```python

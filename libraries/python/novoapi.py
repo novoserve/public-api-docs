@@ -5,9 +5,12 @@ class NovoServeApi:
     def __init__(self, username, api_key):
         self.username = username
         self.api_key = api_key
-        self.api_url = "https://api.novoserve.com/v1/"
+        self.api_url = "https://api.novoserve.com/v0/"
 
-    def __post(self, endpoint, post_data):
+    # Private functions to do HTTP requests
+    def __post(self, endpoint, post_data=None):
+        if post_data is None:
+            post_data = {}
         response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), data=post_data)
         return response.json()
 
@@ -19,41 +22,48 @@ class NovoServeApi:
         response = requests.delete(self.api_url + endpoint, auth=(self.username, self.api_key))
         return response.json()
 
-    def get_bandwidth(self, server_id):
-        return self.__get("bandwidth/" + server_id)
-
-    def get_powerstate(self, server_id):
-        return self.__get("powerstate/" + server_id)
-
-    def power_on(self, server_id):
-        return self.__post("powerstate/" + server_id, {"action": "poweron"})
-
-    def power_off(self, server_id):
-        return self.__post("powerstate/" + server_id, {"action": "poweroff"})
-
-    def reboot(self, server_id):
-        return self.__post("powerstate/" + server_id, {"action": "reset"})
-
-    def cold_boot(self, server_id):
-        return self.__post("powerstate/" + server_id, {"action": "coldboot"})
-
-    def get_console_url(self, server_id, ip_address):
-        return self.__post("console-url/" + server_id, {"remoteIp": ip_address})
+    # Public functions to call specific endpoints
+    def get_all_servers(self):
+        return self.__get("servers/")
 
     def get_server(self, server_id):
         return self.__get("servers/" + server_id)
 
-    def get_all_servers(self):
-        return self.__get("servers/")
+    def get_power_state(self, server_id):
+        return self.__get("servers/" + server_id + "/power")
 
-    def get_webiso_options(self):
-        return self.__get("webiso-installs/")
+    def power_on(self, server_id):
+        return self.__post("servers/" + server_id + "/power", {"action": "poweron"})
 
-    def get_webiso(self, server_id):
-        return self.__get("webiso-installs/" + server_id)
+    def power_off(self, server_id):
+        return self.__post("servers/" + server_id + "/power", {"action": "poweroff"})
 
-    def set_webiso(self, server_id, webiso_url):
-        return self.__post("webiso-installs/" + server_id, {"url": webiso_url})
+    def reboot(self, server_id):
+        return self.__post("servers/" + server_id + "/power", {"action": "reset"})
 
-    def delete_webiso(self, server_id):
-        return self.__delete("webiso-installs/" + server_id)
+    def cold_boot(self, server_id):
+        return self.__post("servers/" + server_id + "/power", {"action": "coldboot"})
+
+    def get_bandwidth_usage(self, server_id):
+        return self.__get("servers/" + server_id + "/bandwidth")
+
+    def get_cancellation(self, server_id):
+        return self.__get("servers/" + server_id + "/cancellation")
+
+    def request_cancellation(self, server_id):
+        return self.__post("servers/" + server_id + "/cancellation")
+
+    def get_ipmi_link(self, server_id, ip_address, whitelabel="no"):
+        return self.__post("servers/" + server_id + "/ipmi-link", {"remoteIp": ip_address, "whitelabel": whitelabel})
+
+    def get_virtual_media(self, server_id):
+        return self.__get("servers/" + server_id + "/virtual-media")
+
+    def mount_virtual_media(self, server_id, virtual_media_url):
+        return self.__post("servers/" + server_id + "/virtual-media", {"url": virtual_media_url})
+
+    def unmount_virtual_media(self, server_id):
+        return self.__delete("servers/" + server_id + "/virtual-media")
+
+    def get_virtual_media_images(self, server_id):
+        return self.__get("servers/" + server_id + "/virtual-media/images")

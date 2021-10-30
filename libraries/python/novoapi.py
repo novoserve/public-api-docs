@@ -11,16 +11,24 @@ class NovoServeApi:
     def __post(self, endpoint, post_data=None):
         if post_data is None:
             post_data = {}
-        response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), data=post_data)
-        return response.json()
+        response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), json=post_data)
+        return self.__check_api_response(response.json())
 
     def __get(self, endpoint):
         response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key))
-        return response.json()
+        return self.__check_api_response(response.json())
 
     def __delete(self, endpoint):
         response = requests.delete(self.api_url + endpoint, auth=(self.username, self.api_key))
-        return response.json()
+        return self.__check_api_response(response.json())
+
+    def __check_api_response(self, response):
+        if response['status'] == 'success':
+            return response['results']
+        elif 'status' in response and 'results' in response:
+            raise ApiError('[' + response['status'] + '] ' + response['results'])
+        else:
+            raise ApiError('Unknown error: ' + response)
 
     # Public functions to call specific endpoints
     def get_all_servers(self):
@@ -67,3 +75,7 @@ class NovoServeApi:
 
     def get_virtual_media_images(self, server_id):
         return self.__get("servers/" + server_id + "/virtual-media/images")
+
+
+class ApiError(Exception):
+    pass

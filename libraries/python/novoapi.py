@@ -55,7 +55,10 @@ class NovoServeApi:
     def get_bandwidth_usage(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id + "/bandwidth")
 
-    def get_cancellation(self, server_id):
+    def get_bandwidth_graph(self, server_id: str) -> dict:
+        return self.__get("servers/" + server_id + "/bandwidth/graph")
+
+    def get_cancellation(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id + "/cancellation")
 
     def request_cancellation(self, server_id: str) -> dict:
@@ -75,6 +78,45 @@ class NovoServeApi:
 
     def get_virtual_media_images(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id + "/virtual-media/images")
+
+    def get_network_config(self, server_id: str) -> dict:
+        return self.__get("servers/" + server_id + "/network-config")
+
+    def set_network_config(self, server_id: str, post_data: dict) -> dict:
+        return self.__post("servers/" + server_id + "/network-config", post_data)
+
+    def get_l2_domains(self) -> dict:
+        return self.__get("l2-domains/")
+
+    def get_l2_domain(self, l2_domain_id: int) -> dict:
+        return self.__get("l2-domains/" + str(l2_domain_id))
+
+    def set_l2_domain_name(self, l2_domain_id: int, l2_domain_name: str) -> dict:
+        return self.__post("l2-domains/" + str(l2_domain_id), {"name": l2_domain_name})
+
+    def get_networks(self) -> dict:
+        return self.__get("networks/")
+
+    def get_network(self, network_id: int) -> dict:
+        return self.__get("networks/" + str(network_id))
+
+    def set_network_name(self, network_id: int, network_name: str) -> dict:
+        return self.__post("networks/" + str(network_id), {"name": network_name})
+
+    def get_rdns_records(self) -> dict:
+        return self.__get("networks/rdns/")
+
+    def set_rdns_record(self, ip: str, record: str) -> dict:
+        return self.__post("networks/rdns/", {"ip": ip, "record": record})
+
+    def get_rdns_records_for_network(self, network_id: int) -> dict:
+        return self.__get("networks/" + str(network_id) + "/rdns")
+
+    def get_rdns_record(self, rdns_id: int) -> dict:
+        return self.__get("networks/rdns/" + str(rdns_id))
+
+    def delete_rdns_record(self, rdns_id: int) -> dict:
+        return self.__delete("networks/rdns/" + str(rdns_id))
 
 
 class ApiError(Exception):

@@ -41,13 +41,13 @@ class NovoServeApi:
         return self.__get("servers/" + server_id + "/power")
 
     def power_on(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "poweron"})
+        return self.__post("servers/" + server_id + "/poweron")
 
     def power_off(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "poweroff"})
+        return self.__post("servers/" + server_id + "/poweroff")
 
     def reboot(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "reset"})
+        return self.__post("servers/" + server_id + "/reset")
 
     def cold_boot(self, server_id: str) -> dict:
         return self.__post("servers/" + server_id + "/power", {"action": "coldboot"})

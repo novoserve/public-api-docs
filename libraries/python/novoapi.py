@@ -50,7 +50,7 @@ class NovoServeApi:
         return self.__post("servers/" + server_id + "/reset")
 
     def cold_boot(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "coldboot"})
+        return self.__post("servers/" + server_id + "/coldboot")
 
     def get_bandwidth_usage(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id + "/bandwidth")

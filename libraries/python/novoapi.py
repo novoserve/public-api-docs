@@ -84,11 +84,11 @@ class NovoServeApi:
     def get_l2_domains(self) -> dict:
         return self.__get("l2-domains/")
 
-    def get_l2_domain(self, l2_domain_id: int) -> dict:
-        return self.__get("l2-domains/" + str(l2_domain_id))
+    def get_l2_domain(self, l2_domain_id: str) -> dict:
+        return self.__get("l2-domains/" + l2_domain_id)
 
-    def set_l2_domain_name(self, l2_domain_id: int, l2_domain_name: str) -> dict:
-        return self.__post("l2-domains/" + str(l2_domain_id), {"name": l2_domain_name})
+    def set_l2_domain_name(self, l2_domain_id: str, l2_domain_name: str) -> dict:
+        return self.__post("l2-domains/" + l2_domain_id, {"name": l2_domain_name})
 
     def get_networks(self) -> dict:
         return self.__get("networks/")

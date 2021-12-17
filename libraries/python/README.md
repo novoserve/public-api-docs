@@ -62,17 +62,11 @@ novoapi.cold_boot("123-123")
 ### Bandwidth statistics
 #### Get the bandwidth statistics for a server
 ```python
-novoapi.get_bandwidth_usage("123-123")
+novoapi.get_bandwidth_usage("123-123", from_epoch=1577833200, until_epoch=1609455600)
 ```
-
-### Cancellation requests
-#### Get the status of a cancellation request
+#### Get a graph of bandwidth statistics for a server (base64 encoded string)
 ```python
-novoapi.get_cancellation("123-123")
-```
-#### Request the cancellation for a server for the end of the billing cycle
-```python
-novoapi.request_cancellation("123-123")
+novoapi.get_bandwidth_graph("123-123", from_epoch=1577833200, until_epoch=1609455600, width=500, height=500)
 ```
 
 ### Console URL
@@ -102,4 +96,76 @@ novoapi.unmount_virtual_media("123-123")
 #### Get all possible virtual media options for a server
 ```python
 novoapi.get_virtual_media_images("123-123")
+```
+
+### Network configuration
+#### Get the current network configuration for a server
+```python
+novoapi.get_network_config("123-123")
+```
+#### Shut down a port for a server
+```python
+network_config = {
+    "shutdown": True
+}
+novoapi.set_network_config("123-123", network_config)
+```
+#### Reconfigure a port for a server
+```python
+network_config = {
+    "l2-domain": "12-3456",
+    "bonding": True,
+    "rateLimit": 1000
+}
+novoapi.set_network_config("123-123", network_config)
+```
+
+### Layer 2 domains
+#### Get all L2 domains
+```python
+novoapi.get_l2_domains()
+```
+#### Get specific L2 domain by ID
+```python
+novoapi.get_l2_domain("12-3456")
+```
+#### Set the name for an L2 domain
+```python
+novoapi.set_l2_domain_name("12-3456", l2_domain_name="l2-domain-1")
+```
+
+### Networks
+#### Get all networks
+```python
+novoapi.get_networks()
+```
+#### Get specific network by ID
+```python
+novoapi.get_network(1234)
+```
+#### Set the name for a network
+```python
+novoapi.set_network_name(1234, network_name="network-1")
+```
+
+### rDNS records
+#### Get all rDNS records
+```python
+novoapi.get_rdns_records()
+```
+#### Create/set an rDNS record
+```python
+novoapi.set_rdns_record(ip="192.168.0.1", record="host1.domain.test")
+```
+#### Get all rDNS records for a specific network
+```python
+novoapi.get_rdns_records_for_network(network_id=1234)
+```
+#### Get a specific rDNS record by ID
+```python
+novoapi.get_rdns_record(1234)
+```
+#### Delete an rDNS record by ID
+```python
+novoapi.delete_rdns_record(1234)
 ```

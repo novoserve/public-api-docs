@@ -14,8 +14,10 @@ class NovoServeApi:
         response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), json=post_data)
         return self.__check_api_response(response.json())
 
-    def __get(self, endpoint: str) -> dict:
-        response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key))
+    def __get(self, endpoint: str, get_parameters: dict = None) -> dict:
+        if get_parameters is None:
+            get_parameters = {}
+        response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key), params=get_parameters)
         return self.__check_api_response(response.json())
 
     def __delete(self, endpoint: str) -> dict:
@@ -41,28 +43,22 @@ class NovoServeApi:
         return self.__get("servers/" + server_id + "/power")
 
     def power_on(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "poweron"})
+        return self.__post("servers/" + server_id + "/poweron")
 
     def power_off(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "poweroff"})
+        return self.__post("servers/" + server_id + "/poweroff")
 
     def reboot(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "reset"})
+        return self.__post("servers/" + server_id + "/reset")
 
     def cold_boot(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/power", {"action": "coldboot"})
+        return self.__post("servers/" + server_id + "/coldboot")
 
-    def get_bandwidth_usage(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/bandwidth")
+    def get_bandwidth_usage(self, server_id: str, from_epoch: int = None, until_epoch: int = None) -> dict:
+        return self.__get("servers/" + server_id + "/bandwidth", {"from": from_epoch, "until": until_epoch})
 
-    def get_bandwidth_graph(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/bandwidth/graph")
-
-    def get_cancellation(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/cancellation")
-
-    def request_cancellation(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/cancellation")
+    def get_bandwidth_graph(self, server_id: str, from_epoch: int = None, until_epoch: int = None, width: int = None, height: int = None) -> dict:
+        return self.__get("servers/" + server_id + "/bandwidth/graph", {"from": from_epoch, "until": until_epoch, "width": width, "height": height})
 
     def get_ipmi_link(self, server_id: str, ip_address: str, whitelabel: str = "no") -> dict:
         return self.__post("servers/" + server_id + "/ipmi-link", {"remoteIp": ip_address, "whitelabel": whitelabel})
@@ -88,11 +84,11 @@ class NovoServeApi:
     def get_l2_domains(self) -> dict:
         return self.__get("l2-domains/")
 
-    def get_l2_domain(self, l2_domain_id: int) -> dict:
-        return self.__get("l2-domains/" + str(l2_domain_id))
+    def get_l2_domain(self, l2_domain_id: str) -> dict:
+        return self.__get("l2-domains/" + l2_domain_id)
 
-    def set_l2_domain_name(self, l2_domain_id: int, l2_domain_name: str) -> dict:
-        return self.__post("l2-domains/" + str(l2_domain_id), {"name": l2_domain_name})
+    def set_l2_domain_name(self, l2_domain_id: str, l2_domain_name: str) -> dict:
+        return self.__post("l2-domains/" + l2_domain_id, {"name": l2_domain_name})
 
     def get_networks(self) -> dict:
         return self.__get("networks/")

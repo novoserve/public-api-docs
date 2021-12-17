@@ -14,8 +14,10 @@ class NovoServeApi:
         response = requests.post(self.api_url + endpoint, auth=(self.username, self.api_key), json=post_data)
         return self.__check_api_response(response.json())
 
-    def __get(self, endpoint: str) -> dict:
-        response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key))
+    def __get(self, endpoint: str, get_parameters: dict = None) -> dict:
+        if get_parameters is None:
+            get_parameters = {}
+        response = requests.get(self.api_url + endpoint, auth=(self.username, self.api_key), params=get_parameters)
         return self.__check_api_response(response.json())
 
     def __delete(self, endpoint: str) -> dict:

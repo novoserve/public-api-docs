@@ -60,12 +60,6 @@ class NovoServeApi:
     def get_bandwidth_graph(self, server_id: str, from_epoch: int = None, until_epoch: int = None, width: int = None, height: int = None) -> dict:
         return self.__get("servers/" + server_id + "/bandwidth/graph", {"from": from_epoch, "until": until_epoch, "width": width, "height": height})
 
-    def get_cancellation(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/cancellation")
-
-    def request_cancellation(self, server_id: str) -> dict:
-        return self.__post("servers/" + server_id + "/cancellation")
-
     def get_ipmi_link(self, server_id: str, ip_address: str, whitelabel: str = "no") -> dict:
         return self.__post("servers/" + server_id + "/ipmi-link", {"remoteIp": ip_address, "whitelabel": whitelabel})
 

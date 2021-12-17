@@ -54,11 +54,11 @@ class NovoServeApi:
     def cold_boot(self, server_id: str) -> dict:
         return self.__post("servers/" + server_id + "/coldboot")
 
-    def get_bandwidth_usage(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/bandwidth")
+    def get_bandwidth_usage(self, server_id: str, from_epoch: int = None, until_epoch: int = None) -> dict:
+        return self.__get("servers/" + server_id + "/bandwidth", {"from": from_epoch, "until": until_epoch})
 
-    def get_bandwidth_graph(self, server_id: str) -> dict:
-        return self.__get("servers/" + server_id + "/bandwidth/graph")
+    def get_bandwidth_graph(self, server_id: str, from_epoch: int = None, until_epoch: int = None, width: int = None, height: int = None) -> dict:
+        return self.__get("servers/" + server_id + "/bandwidth/graph", {"from": from_epoch, "until": until_epoch, "width": width, "height": height})
 
     def get_cancellation(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id + "/cancellation")

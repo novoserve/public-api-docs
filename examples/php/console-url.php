@@ -16,10 +16,10 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_USERPWD => $apiKey.':'.$apiSecret,
-  CURLOPT_POSTFIELDS =>'{
-    "remoteIp": "127.0.0.1",
-    "whitelabel": "yes"
-  }',
+  CURLOPT_POSTFIELDS => json_encode([
+    'remoteIp' => $_SERVER['REMOTE_ADDR'],
+    'whiteLabel' => "yes" 
+  ]),
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json'
   ),

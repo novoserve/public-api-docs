@@ -85,7 +85,7 @@ class Client
      * @param array $body The body data to send.
      * @return array Returns an array with data from the API.
      */
-    public function get(string $endpoint, array $body): array
+    public function get(string $endpoint, array $body = []): array
     {
         if (count($body)) {
             $endpoint .= '?' . http_build_query($body);

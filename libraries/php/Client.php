@@ -99,7 +99,7 @@ class Client
      * @param array $body The body data to send.
      * @return array Returns an array with data from the API.
      */
-    public function post(string $endpoint, array $body): array
+    public function post(string $endpoint, array $body = []): array
     {
         return $this->curl('POST', $endpoint, $body);
     }
@@ -110,7 +110,7 @@ class Client
      * @param array $body The body data to send.
      * @return array Returns an array with data from the API.
      */
-    public function put(string $endpoint, array $body): array
+    public function put(string $endpoint, array $body = []): array
     {
         return $this->curl('PUT', $endpoint, $body);
     }
@@ -121,7 +121,7 @@ class Client
      * @param array $body The body data to send.
      * @return array Returns an array with data from the API.
      */
-    public function patch(string $endpoint, array $body): array
+    public function patch(string $endpoint, array $body = []): array
     {
         return $this->curl('PATCH', $endpoint, $body);
     }
@@ -132,7 +132,7 @@ class Client
      * @param array $body The body data to send.
      * @return array Returns an array with data from the API.
      */
-    public function delete(string $endpoint, array $body): array
+    public function delete(string $endpoint, array $body = []): array
     {
         return $this->curl('DELETE', $endpoint, $body);
     }

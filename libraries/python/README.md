@@ -87,7 +87,7 @@ novoapi.get_virtual_media("123-123")
 ```
 #### Mount a specific ISO on a server
 ```python
-novoapi.mount_virtual_media("123-123", "https://webiso.novoserve.com/path/to/iso")
+novoapi.mount_virtual_media("123-123", "http://webiso.nl.novoserve.org/path/to/iso")
 ```
 #### Unmount the ISO on a server
 ```python

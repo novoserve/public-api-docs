@@ -34,7 +34,7 @@ class NovoServeApi:
 
     # Public functions to call specific endpoints
     def get_all_servers(self) -> dict:
-        return self.__get("servers/")
+        return self.__get("servers")
 
     def get_server(self, server_id: str) -> dict:
         return self.__get("servers/" + server_id)
@@ -82,7 +82,7 @@ class NovoServeApi:
         return self.__post("servers/" + server_id + "/network-config", post_data)
 
     def get_l2_domains(self) -> dict:
-        return self.__get("l2-domains/")
+        return self.__get("l2-domains")
 
     def get_l2_domain(self, l2_domain_id: str) -> dict:
         return self.__get("l2-domains/" + l2_domain_id)
@@ -91,7 +91,7 @@ class NovoServeApi:
         return self.__post("l2-domains/" + l2_domain_id, {"name": l2_domain_name})
 
     def get_networks(self) -> dict:
-        return self.__get("networks/")
+        return self.__get("networks")
 
     def get_network(self, network_id: int) -> dict:
         return self.__get("networks/" + str(network_id))
@@ -100,7 +100,7 @@ class NovoServeApi:
         return self.__post("networks/" + str(network_id), {"name": network_name})
 
     def get_rdns_records(self) -> dict:
-        return self.__get("networks/rdns/")
+        return self.__get("networks/rdns")
 
     def set_rdns_record(self, ip: str, record: str) -> dict:
         return self.__post("networks/rdns/", {"ip": ip, "record": record})

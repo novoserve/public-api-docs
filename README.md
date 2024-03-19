@@ -1,5 +1,9 @@
 # NovoServe Public API Documentation
-Documentation for NovoServe's public API.
+This repository contains code examples for NovoServe's Public API.
+
+The API documentation is hosted on our API server.
+- [API documentation](https://api.novoserve.com/docs)
+- [Raw OpenAPI specification](https://api.novoserve.com/v0/swagger.json)
 
 ## Code examples
 Code examples to use our API are located in the `examples/` directory.  
